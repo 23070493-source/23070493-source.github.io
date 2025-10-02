@@ -1,0 +1,12 @@
+        p {
+            background-color: rgb(181, 238, 211);
+            font-weight: bold;
+        }
+        .highlight {
+            color: red;
+            font-size: 18px;
+        }
+        h1 {
+            text-align: center;
+            text-decoration: underline;
+        }
