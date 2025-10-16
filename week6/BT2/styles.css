@@ -1,0 +1,58 @@
+/* Product List Styles */
+.product {
+    text-align: center;
+    width: 150px;
+    margin: 0px 20px;
+    float: left;
+    cursor: pointer;
+}
+
+.product-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px #aaa;
+}
+
+.product-details {
+    display: none;
+}
+
+.product-name {
+    font-weight: bold;
+}
+
+.product-price {
+    font-style: italic;
+}
+
+.product:hover .product-details {
+    display: block;
+}
+
+/* Menu Styles */
+.menu-title {
+    background: linear-gradient(to right, #ff0000, #00ff00);
+    color: #fff;
+    padding: 10px;
+}
+
+.menu-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu-list li {
+    position: relative;
+    padding-left: 20px;
+}
+
+.menu-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+}
+
+.menu-list li:hover {
+    background-color: yellow;
+}

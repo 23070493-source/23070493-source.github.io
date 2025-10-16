@@ -28,3 +28,10 @@ div {
 body {
     font-family: "Comic Sans MS";
 }
+
+/* Target the second, fifth, and sixth paragraphs */
+div:nth-child(2),
+div:nth-child(5),
+div:nth-child(6) {
+    color: red;
+}
