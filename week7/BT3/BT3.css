@@ -1,0 +1,51 @@
+/* Ẩn chi tiết sản phẩm ban đầu */
+.ProductDetails {
+    display: none;
+}
+
+/* Định dạng hình ảnh sản phẩm */
+.Product img {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px #aaa;
+    object-fit: cover;
+}
+
+/* Tên sản phẩm in đậm */
+.ProductName {
+    font-weight: bold;
+}
+
+/* Giá sản phẩm in nghiêng, có dấu gạch nối phía trước */
+.ProductPrice {
+    font-style: italic;
+}
+.ProductPrice:before {
+    content: " - ";
+}
+
+/* Định dạng khối sản phẩm */
+.Product {
+    text-align: center;
+    width: 150px;
+    margin: 0px 20px;
+    float: left;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px #aaa;
+    transition: box-shadow 0.2s;
+    padding-bottom: 10px;
+}
+
+/* Hiệu ứng hover: hiện chi tiết sản phẩm */
+.Product:hover .ProductDetails {
+    display: block;
+}
+
+/* Đảm bảo bố cục không bị tràn */
+body > div {
+    overflow: hidden;
+    padding-top: 20px;
+}
