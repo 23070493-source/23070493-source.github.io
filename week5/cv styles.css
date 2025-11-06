@@ -16,6 +16,7 @@
             height: 60px;
             display: inline-block;
             padding: 0 40px;
+            text-transform: uppercase;
         }
         nav#topmenu a {
             text-decoration: none;
