@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum Calculator</title>
+</head>
+<body>
+    <input type="text" id="a">
+    <input type="text" id="b">
+    <button onclick="sum()">Calculate sum</button>
+    <script>
+        function sum() {
+            var txta = document.getElementById("a").value;
+            var txtb = document.getElementById("b").value;
+
+            // Kiểm tra trường hợp nhập thiếu hoặc không phải số cho A
+            if (txta == null || txta.trim() === "" || isNaN(parseFloat(txta))) {
+                alert("Number A is formatted incorrect");
+            }
+            // Kiểm tra trường hợp nhập thiếu hoặc không phải số cho B
+            else if (txtb == null || txtb.trim() === "" || isNaN(parseFloat(txtb))) {
+                alert("Number B is formatted incorrect");
+            }
+            // Nếu hợp lệ thì tính tổng và hiển thị kết quả chi tiết
+            else {
+                var result = parseFloat(txta) + parseFloat(txtb);
+                alert("Result:\n" + txta + " + " + txtb + " = " + result);
+            }
+        }
+    </script>
+</body>
+</html>

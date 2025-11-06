@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="stylescv.css" />
+</head>
+<body>
+    <main class="card" role="main">
+        <h1>Contact Me</h1>
+        <p class="lead">Send a message and I'll get back to you as soon as possible.</p>
+
+        <!-- Replace FORM_ENDPOINT with your server endpoint or Formspree URL -->
+        <form id="contactForm" data-endpoint="https://example.com/contact" novalidate>
+            <div class="row">
+                <div>
+                    <label for="name">Name <span class="muted">*</span></label>
+                    <input id="name" name="name" type="text" required autocomplete="name" />
+                </div>
+                <div>
+                    <label for="email">Email <span class="muted">*</span></label>
+                    <input id="email" name="email" type="email" required autocomplete="email" />
+                </div>
+            </div>
+
+            <div>
+                <label for="subject">Subject</label>
+                <input id="subject" name="subject" type="text" placeholder="Brief subject" />
+            </div>
+
+            <!-- NEW: gender select -->
+            <div class="field-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" class="select" aria-label="Gender">
+                    <option value="">Choose gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other / Prefer not to say</option>
+                </select>
+                <div class="small">Optional — helps me address you correctly.</div>
+            </div>
+
+            <!-- NEW: checkbox group for interests -->
+            <div class="field-group">
+                <label>Interests</label>
+                <div class="checkbox-row" role="group" aria-label="Interests">
+                    <label><input type="checkbox" name="interest_news" value="news"> News</label>
+                    <label><input type="checkbox" name="interest_updates" value="updates"> Updates</label>
+                    <label><input type="checkbox" name="interest_offers" value="offers"> Offers</label>
+                </div>
+                <div class="small">Pick any topics you'd like to hear about.</div>
+            </div>
+
+            <div>
+                <label for="message">Message <span class="muted">*</span></label>
+                <textarea id="message" name="message" required placeholder="Write your message..."></textarea>
+            </div>
+
+            <!-- NEW: radio list for preferred contact method -->
+            <div class="field-group">
+                <label>Preferred contact method</label>
+                <div class="radio-row" role="radiogroup" aria-label="Preferred contact method">
+                    <label><input type="radio" name="contact_method" value="email" checked> Email</label>
+                    <label><input type="radio" name="contact_method" value="phone"> Phone</label>
+                    <label><input type="radio" name="contact_method" value="none"> No preference</label>
+                </div>
+                <div class="small">Choose how you'd prefer to be contacted.</div>
+            </div>
+
+            <label style="display:flex; gap:8px; align-items:center;">
+                <input id="consent" name="consent" type="checkbox" required />
+                <span class="muted">I agree to be contacted regarding my message.</span>
+            </label>
+
+            <div class="actions">
+                <button type="submit" id="submitBtn">Send message</button>
+                <button type="button" id="mailtoBtn" class="secondary">Open mail client</button>
+                <div class="status" id="status" aria-live="polite"></div>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // Minimal client-side handling: posts JSON to endpoint, with mailto fallback.
+        (function(){
+            const form = document.getElementById('contactForm');
+            const statusEl = document.getElementById('status');
+            const submitBtn = document.getElementById('submitBtn');
+            const mailtoBtn = document.getElementById('mailtoBtn');
+            const endpoint = form.dataset.endpoint || '';
+
+            function setStatus(msg, ok){
+                statusEl.textContent = msg || '';
+                statusEl.style.color = ok ? 'green' : '';
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                setStatus('');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                const data = {
+                    name: form.name.value.trim(),
+                    email: form.email.value.trim(),
+                    gender: form.gender ? form.gender.value : '',
+                    interests: Array.from(form.querySelectorAll('input[type="checkbox"]:checked')).map(i=>i.value),
+                    contact_method: form.contact_method ? form.contact_method.value : '',
+                    subject: form.subject.value.trim(),
+                    message: form.message.value.trim()
+                };
+
+                // If you have a server endpoint, fetch it. Replace endpoint value above.
+                if (endpoint && endpoint !== 'https://example.com/contact') {
+                    try {
+                        const res = await fetch(endpoint, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        });
+                        if (res.ok) {
+                            setStatus('Message sent. Thank you!', true);
+                            form.reset();
+                        } else {
+                            const text = await res.text();
+                            setStatus('Server error: ' + (text || res.status), false);
+                        }
+                    } catch (err) {
+                        setStatus('Network error. Try using your mail client.', false);
+                    }
+                } else {
+                    // No endpoint configured -> suggest mail client
+                    setStatus('No server configured. Use "Open mail client" button.', false);
+                }
+
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send message';
+            });
+
+            mailtoBtn.addEventListener('click', () => {
+                const name = encodeURIComponent(form.name.value || '');
+                const email = encodeURIComponent(form.email.value || '');
+                const subject = encodeURIComponent(form.subject.value || 'Contact from website');
+                const interests = Array.from(form.querySelectorAll('input[type="checkbox"]:checked')).map(i=>i.value).join(', ');
+                const contactMethod = form.contact_method ? form.contact_method.value : '';
+                const bodyLines = [
+                    `Name: ${form.name.value || ''}`,
+                    `Email: ${form.email.value || ''}`,
+                    `Gender: ${form.gender ? form.gender.value : ''}`,
+                    `Interests: ${interests}`,
+                    `Preferred contact: ${contactMethod}`,
+                    '',
+                    form.message.value || ''
+                ];
+                const body = encodeURIComponent(bodyLines.join('\n'));
+                // Replace recipient@example.com with your email address
+                const mailto = `mailto:recipient@example.com?subject=${subject}&body=${body}`;
+                window.location.href = mailto;
+            });
+        })();
+    </script>
+</body>
+</html>

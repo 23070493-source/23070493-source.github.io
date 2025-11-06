@@ -1,0 +1,91 @@
+:root{
+        --bg:#f6f8fa; --card:#fff; --accent:#0b5cff; --muted:#6b7280;
+        --radius:12px; font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+    }
+    html,body{height:100%}
+    body{
+        margin:0; display:flex; align-items:center; justify-content:center;
+        background:linear-gradient(180deg,var(--bg),#e9eef8);
+        padding:32px;
+    }
+    .card{
+        width:100%; max-width:720px; background:var(--card); border-radius:var(--radius);
+        box-shadow:0 6px 24px rgba(16,24,40,0.08); padding:28px;
+    }
+    h1{margin:0 0 8px; font-size:20px}
+    p.lead{margin:0 0 18px; color:var(--muted); font-size:14px}
+    form{display:grid; gap:12px}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    label{display:block; font-size:13px; color:#111827; margin-bottom:6px}
+    input[type="text"], input[type="email"], textarea {
+        width:100%; padding:10px 12px; border:1px solid #e6e9ef; border-radius:8px;
+        font-size:14px; background:#fff; box-sizing:border-box;
+    }
+    textarea{min-height:120px; resize:vertical}
+    .muted{font-size:12px; color:var(--muted)}
+    .actions{display:flex; gap:10px; align-items:center; margin-top:4px}
+    button{
+        background:var(--accent); color:#fff; border:0; padding:10px 14px; border-radius:8px;
+        cursor:pointer; font-weight:600;
+    }
+    button[disabled]{opacity:.6; cursor:not-allowed}
+    .secondary{background:#f3f4f6; color:#111827}
+    .status{font-size:13px; color:var(--muted)}
+    @media (max-width:560px){ .row{grid-template-columns:1fr} }
+
+/* ---- additions for select / checkboxes / radios ---- */
+select, .select {
+    width:100%;
+    padding:10px 12px;
+    border:1px solid #e6e9ef;
+    border-radius:8px;
+    background:#fff;
+    font-size:14px;
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    box-sizing:border-box;
+}
+
+.field-group {
+    display:grid;
+    gap:6px;
+}
+
+.checkbox-row, .radio-row {
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.checkbox-row label, .radio-row label {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    background:#fff;
+    padding:6px 10px;
+    border-radius:8px;
+    border:1px solid #eef2f6;
+    cursor:pointer;
+    font-size:14px;
+    color:#111827;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    width:16px;
+    height:16px;
+    margin:0;
+    accent-color: var(--accent);
+}
+
+/* small help text style */
+.small {
+    font-size:12px;
+    color:var(--muted);
+}
+
+/* keep layout tidy on small screens */
+@media (max-width:560px){
+    .checkbox-row, .radio-row { gap:8px }
+}

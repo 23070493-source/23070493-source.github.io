@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum Calculator</title>
+</head>
+<body>
+    <input type="text" id="a" placeholder="Enter number A">
+    <input type="text" id="b" placeholder="Enter number B">
+    <button onclick="sum()">Calculate sum</button>
+    <script>
+        function sum() {
+            var txta = document.getElementById("a").value;
+            var txtb = document.getElementById("b").value;
+
+            // Kiểm tra trường hợp nhập thiếu hoặc không phải số cho A
+            if (txta == null || txta.trim() === "" || isNaN(parseFloat(txta))) {
+                document.write("<font color='red'>Number A is formatted incorrect</font>");
+            }
+            // Kiểm tra trường hợp nhập thiếu hoặc không phải số cho B
+            else if (txtb == null || txtb.trim() === "" || isNaN(parseFloat(txtb))) {
+                document.write("<font color='red'>Number B is formatted incorrect</font>");
+            }
+            // Nếu hợp lệ thì tính tổng và hiển thị kết quả chi tiết
+            else {
+                var result = parseFloat(txta) + parseFloat(txtb);
+                document.write("<font color='green'><b>Result:</b></font><br>");
+                document.write("<font color='blue'>" + txta + " + " + txtb + " = " + result + "</font>");
+            }
+        }
+    </script>
+</body>
+</html>
