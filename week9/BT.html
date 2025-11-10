@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="BT.css" />
+</head>
+<body>
+    <main class="card" role="main">
+        <h1>Contact Me</h1>
+        <p class="lead">Send a message and I'll get back to you as soon as possible.</p>
+
+        <form id="contactForm" novalidate>
+            <div class="row">
+                <div>
+                    <label for="name">Name <span class="required">*</span></label>
+                    <input id="name" name="name" type="text" required autocomplete="name" />
+                </div>
+                <div>
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input id="email" name="email" type="email" required autocomplete="email" />
+                </div>
+            </div>
+
+            <div>
+                <label for="phone">Phone Number <span class="required">*</span></label>
+                <input id="phone" name="phone" type="text" required placeholder="Enter your phone number" />
+            </div>
+
+            <div>
+                <label for="address">Address</label>
+                <input id="address" name="address" type="text" placeholder="Enter your address" />
+            </div>
+
+            <div>
+                <label for="gender">Gender <span class="required">*</span></label>
+                <select id="gender" name="gender" class="select" required>
+                    <option value="">Choose gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other / Prefer not to say</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="message">Message <span class="required">*</span></label>
+                <textarea id="message" name="message" required placeholder="Write your message..."></textarea>
+            </div>
+
+            <div class="actions">
+                <button type="submit" id="submitBtn">Submit</button>
+                <div class="status" id="status" aria-live="polite"></div>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const gender = document.getElementById('gender').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Validate name (no numbers allowed)
+            if (!/^[a-zA-Z\s]+$/.test(name)) {
+                alert('Name must not contain numbers.');
+                return;
+            }
+
+            // Validate email (must contain @ and a valid domain)
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            // Validate phone number (must start with 0 and be at least 10 digits)
+            if (!/^0\d{9,}$/.test(phone)) {
+                alert('Phone number must start with 0 and be at least 10 digits.');
+                return;
+            }
+
+            // Validate gender (must be selected)
+            if (!gender) {
+                alert('Please select a gender.');
+                return;
+            }
+
+            // Log data to console
+            console.log('Name:', name);
+            console.log('Email:', email);
+            console.log('Phone:', phone);
+            console.log('Address:', address);
+            console.log('Gender:', gender);
+            console.log('Message:', message);
+
+            // Show success message
+            alert('Form submitted successfully!');
+        });
+    </script>
+</body>
+</html>
