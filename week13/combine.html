@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Ôn tập ISV2017</title>
+    <style>
+        /* CSS mềm mại cho bảng */
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 80%;
+            margin: 24px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+            overflow: hidden;
+        }
+        th, td {
+            border: none;
+            padding: 14px 12px;
+            text-align: left;
+            font-size: 16px;
+        }
+        th {
+            background: linear-gradient(90deg,#e3eafc,#f9f9f9);
+            font-weight: 600;
+            color: #3a3a3a;
+        }
+        tr {
+            transition: background 0.2s;
+        }
+        tr:hover {
+            background-color: #f0f4fa;
+        }
+        
+        /* Định dạng menu mềm mại */
+        nav {
+            background: linear-gradient(90deg,#6a8dff,#b6eaff);
+            padding: 18px 0;
+            text-align: center;
+            border-radius: 12px;
+            margin: 18px auto 0 auto;
+            width: 85%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 18px;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+        }
+        nav a:hover {
+            background: #fff;
+            color: #6a8dff;
+        }
+        
+        /* Form mềm mại */
+        .form-container {
+            width: 60%;
+            margin: 28px auto;
+            padding: 28px 24px;
+            border-radius: 16px;
+            background: #f7faff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: none;
+        }
+        .form-container h3 {
+            margin-top: 0;
+            color: #4a6fa5;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        label {
+            font-size: 15px;
+            color: #3a3a3a;
+            margin-bottom: 4px;
+            display: block;
+        }
+        input[type="text"], 
+        input[type="email"], 
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            margin: 7px 0 16px 0;
+            border: 1px solid #dbeafe;
+            border-radius: 8px;
+            font-size: 15px;
+            background: #fff;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus, 
+        input[type="email"]:focus, 
+        textarea:focus {
+            border: 1.5px solid #6a8dff;
+            outline: none;
+        }
+        input[type="submit"] {
+            background: linear-gradient(90deg,#6a8dff,#b6eaff);
+            color: #fff;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 8px;
+        }
+        input[type="submit"]:hover {
+            background: linear-gradient(90deg,#b6eaff,#6a8dff);
+        }
+        button {
+            background: #e3eafc;
+            color: #4a6fa5;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 8px 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+        button:hover {
+            background: #6a8dff;
+            color: #fff;
+        }
+        body {
+            background: linear-gradient(120deg,#f7faff 60%,#e3eafc 100%);
+            min-height: 100vh;
+        }
+        h2 {
+            text-align: center;
+            color: #4a6fa5;
+            font-size: 24px;
+            margin-top: 32px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Phần 1: Menu điều hướng -->
+    <nav id="mainNav">
+        <a href="#">Trang chủ</a>
+        <a href="#">Sách &copy;</a>
+        <a href="#">Tác giả &trade;</a>
+        <a href="#">Liên hệ</a>
+    </nav>
+    <button onclick="toggleMenu()">Ẩn/Hiện Menu</button>
+
+    <!-- Phần 2: Bảng và nút tương tác -->
+    <h2>Bảng linh kiện máy tính &copy;</h2>
+    <table id="componentTable">
+        <tr>
+            <th>Tên linh kiện</th>
+            <th>Giá (VND)</th>
+            <th>Đánh giá &star;</th>
+        </tr>
+        <tr>
+            <td>CPU Intel&trade; Core i5</td>
+            <td>5000000</td>
+            <td>4.5/5</td>
+        </tr>
+        <tr>
+            <td>RAM DDR4 8GB</td>
+            <td>800000</td>
+            <td>4.0/5</td>
+        </tr>
+        <tr>
+            <td>Ổ cứng SSD 256GB</td>
+            <td>1200000</td>
+            <td>4.8/5</td>
+        </tr>
+    </table>
+    <button onclick="changeColor()">Đổi màu chữ</button>
+    <button onclick="sortTable()">Sắp xếp theo giá</button>
+
+    <!-- Phần 3: Form liên hệ -->
+    <div class="form-container">
+        <h3>Biểu mẫu liên hệ</h3>
+        <form onsubmit="return validateForm()">
+            <label>Họ tên:</label>
+            <input type="text" id="name">
+            
+            <label>Email:</label>
+            <input type="email" id="email">
+            
+            <label>Tin nhắn:</label>
+            <textarea id="message"></textarea>
+            
+            <input type="submit" value="Gửi">
+        </form>
+    </div>
+
+    <script>
+        // JavaScript cơ bản
+        let isRed = false;
+        
+        function changeColor() {
+            const table = document.getElementById("componentTable");
+            table.style.color = isRed ? "black" : "red";
+            isRed = !isRed;
+        }
+
+        function sortTable() {
+            const table = document.getElementById("componentTable");
+            const rows = Array.from(table.rows).slice(1);
+            rows.sort((a, b) => {
+                const priceA = parseInt(a.cells[1].innerText);
+                const priceB = parseInt(b.cells[1].innerText);
+                return priceA - priceB;
+            });
+            rows.forEach(row => table.appendChild(row));
+        }
+
+        function toggleMenu() {
+            const nav = document.getElementById("mainNav");
+            nav.style.display = nav.style.display === "none" ? "block" : "none";
+        }
+
+        function validateForm() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            if (name === "" || email === "" || message === "") {
+                alert("Vui lòng điền đầy đủ thông tin!");
+                return false;
+            }
+            alert("Gửi thành công!");
+            return true;
+        }
+    </script>
+</body>
+</html>
