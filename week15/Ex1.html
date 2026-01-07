@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration Form</title>
+    <style>
+        body {
+            background: #f7f8fa;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-container {
+            background: #fff;
+            padding: 32px 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            max-width: 350px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        label {
+            font-size: 15px;
+            color: #333;
+        }
+        input[type="text"], input[type="password"], input[type="file"] {
+            padding: 9px 10px;
+            border: 1px solid #dbeafe;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        .strength-bar {
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 4px;
+            background: #eee;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .strength-bar.weak { background: #ff6b6b; }
+        .strength-bar.medium { background: #ffd166; }
+        .strength-bar.strong { background: #06d6a0; }
+        .strength-label {
+            font-size: 13px;
+            margin-top: 2px;
+            color: #888;
+        }
+        .error {
+            color: #e63946;
+            font-size: 13px;
+            margin-top: 2px;
+        }
+        button {
+            background: #457b9d;
+            color: #fff;
+            border: none;
+            padding: 12px 0;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #1d3557;
+        }
+    </style>
+</head>
+<body>
+    <form class="form-container" id="registerForm" autocomplete="off">
+        <h2 style="text-align:center; margin-bottom:8px;">Register</h2>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" required minlength="5" maxlength="15">
+            <div class="error" id="usernameError"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required>
+            <div class="strength-bar" id="strengthBar"></div>
+            <div class="strength-label" id="strengthLabel"></div>
+            <div class="error" id="passwordError"></div>
+        </div>
+        <div class="form-group">
+            <label for="profilePic">Profile Picture</label>
+            <input id="profilePic" name="profilePic" type="file" accept=".jpg,.jpeg,.png" required>
+            <div class="error" id="fileError"></div>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    <script>
+        // Password strength checker
+        const password = document.getElementById('password');
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthLabel = document.getElementById('strengthLabel');
+        password.addEventListener('input', function() {
+            const val = password.value;
+            let strength = 0;
+            if (val.length >= 6) strength++;
+            if (/[A-Za-z]/.test(val) && /\d/.test(val)) strength++;
+            if (val.length >= 10 && /[!@#$%^&*]/.test(val)) strength++;
+            // Update bar and label
+            if (val.length === 0) {
+                strengthBar.className = 'strength-bar';
+                strengthLabel.textContent = '';
+            } else if (strength === 1) {
+                strengthBar.className = 'strength-bar weak';
+                strengthLabel.textContent = 'Weak';
+            } else if (strength === 2) {
+                strengthBar.className = 'strength-bar medium';
+                strengthLabel.textContent = 'Medium';
+            } else {
+                strengthBar.className = 'strength-bar strong';
+                strengthLabel.textContent = 'Strong';
+            }
+        });
+
+        // Form validation
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            let valid = true;
+            // Username validation
+            const username = document.getElementById('username').value.trim();
+            const usernameError = document.getElementById('usernameError');
+            if (username.length < 5 || username.length > 15) {
+                usernameError.textContent = "Username must be 5-15 characters.";
+                valid = false;
+            } else {
+                usernameError.textContent = "";
+            }
+            // Password validation
+            const pwd = password.value;
+            const passwordError = document.getElementById('passwordError');
+            if (!(/[A-Za-z]/.test(pwd) && /\d/.test(pwd))) {
+                passwordError.textContent = "Password must contain both letters and numbers.";
+                valid = false;
+            } else {
+                passwordError.textContent = "";
+            }
+            // File validation
+            const fileInput = document.getElementById('profilePic');
+            const fileError = document.getElementById('fileError');
+            if (fileInput.files.length === 0) {
+                fileError.textContent = "Please select a profile picture.";
+                valid = false;
+            } else {
+                const file = fileInput.files[0];
+                const ext = file.name.split('.').pop().toLowerCase();
+                if (ext !== "jpg" && ext !== "jpeg" && ext !== "png") {
+                    fileError.textContent = "Image file must be JPG or PNG.";
+                    valid = false;
+                } else {
+                    fileError.textContent = "";
+                }
+            }
+            if (!valid) e.preventDefault();
+        });
+    </script>
+</body>
+</html>
