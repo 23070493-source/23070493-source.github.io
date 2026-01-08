@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 9</title>
+    <style>
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { 
+            border: 1px solid #ddd; 
+            padding: 10px; 
+            box-shadow: 2px 2px 5px grey; /* Shadow */
+        }
+        .card:hover { background-color: #f9f9f9; } /* Hover effect */
+    </style>
+</head>
+<body>
+    <h1>Products &rarr;</h1>
+    <button onclick="togglePrice()">Toggle Price</button>
+    <br><br>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Item 1 &copy;</h3>
+            <p>Short desc...</p>
+            <p class="price">Price: 10 &euro;</p>
+        </div>
+        <div class="card">
+            <h3>Item 2</h3>
+            <p>Short desc...</p>
+            <p class="price">Price: 20 &euro;</p>
+        </div>
+        <div class="card">
+            <h3>Item 3</h3>
+            <p>Short desc...</p>
+            <p class="price">Price: 30 &euro;</p>
+        </div>
+        <div class="card">
+            <h3>Item 4</h3>
+            <p>Short desc...</p>
+            <p class="price">Price: 40 &euro;</p>
+        </div>
+    </div>
+
+    <script>
+        function togglePrice() {
+            let prices = document.getElementsByClassName("price");
+            for (let i = 0; i < prices.length; i++) {
+                if (prices[i].style.visibility === "hidden") {
+                    prices[i].style.visibility = "visible";
+                } else {
+                    prices[i].style.visibility = "hidden";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form { display: flex; flex-direction: column; width: 300px; }
+        form input, form button { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <form onsubmit = "return validateForm()">
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password" onkeyup="checkStrength()">
+        <span id="strengthText"></span>
+        <input type="file" id="profilePic">
+        <button type="submit">Register</button>
+
+        <script>
+        function checkStrength() {
+            let pass = document.getElementById("password").value;
+            let text = document.getElementById("strengthText");
+            
+            // Real-time strength check
+            if (pass.length < 4) text.innerHTML = "Weak";
+            else if (pass.length < 8) text.innerHTML = "Medium";
+            else text.innerHTML = "Strong";
+        }
+        function validateForm() {
+            let user = document.getElementById("username").value;
+            let pass = document.getElementById("password").value;
+            let file = document.getElementById("profilePic").value;
+
+            // Validation Rules
+            if (user.length < 5 || user.length > 15) {
+                alert("Username must be 5-15 characters");
+                return false;
+            }
+            // Regex for numbers and letters
+            if (!/[a-zA-Z]/.test(pass) || !/[0-9]/.test(pass)) {
+                alert("Password must contain numbers and letters");
+                return false;
+            }
+            if (!file.endsWith(".jpg") && !file.endsWith(".png")) {
+                alert("Image must be JPG or PNG");
+                return false;
+            }
+            return true;
+        }
+        </script>
+</body>
+</html>

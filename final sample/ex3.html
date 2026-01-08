@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 3</title>
+    <style>
+        /* Alternating row colors */
+        tr:nth-child(even) { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>Grades &ge; Passing &sect;</h2>
+    <table>
+        <tr><th>Subject &reg;</th><th>Grade</th></tr>
+        <tr><td>Math</td><td class="grade">8.5</td></tr>
+        <tr><td>Physics</td><td class="grade">7.0</td></tr>
+        <tr><td>Chemistry</td><td class="grade">9.0</td></tr>
+        <tr><td>English</td><td class="grade">8.0</td></tr>
+    </table>
+    <br>
+    <button onclick="calculateAverage()">Calculate Average</button>
+    <p id="result"></p>
+
+    <script>
+        function calculateAverage() {
+            let grades = document.querySelectorAll(".grade");
+            let sum = 0;
+            
+            // Loop through node list
+            for (let i = 0; i < grades.length; i++) {
+                sum += parseFloat(grades[i].innerText);
+            }
+            
+            document.getElementById("result").innerText = "Average: " + (sum / grades.length);
+        }
+    </script>
+</body>
+</html>

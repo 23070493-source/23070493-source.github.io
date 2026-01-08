@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 4</title>
+</head>
+<body>
+    <h2>Menu</h2>
+    <div class="menu-item veg">Salad (Appetizer) &ge; $5</div>
+    <div class="menu-item meat">Steak &sect; (Main) &ge; $20</div>
+    <div class="menu-item veg">Cake (Dessert) &ge; $6</div>
+    <div class="menu-item veg">Juice (Drink) &ge; $3</div>
+
+    <button onclick="filterMenu()">Filter Menu (Veg Only)</button>
+
+    <script>
+        function filterMenu() {
+            let allItems = document.getElementsByClassName("menu-item");
+            let isFiltered = false;
+
+            for (let i = 0; i < allItems.length; i++) {
+                // If it does NOT contain 'veg', hide it
+                if (!allItems[i].classList.contains("veg")) {
+                    if (allItems[i].style.display === "none") {
+                        allItems[i].style.display = "block"; // Show all
+                    } else {
+                        allItems[i].style.display = "none"; // Hide non-veg
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

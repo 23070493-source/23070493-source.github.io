@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2</title>
+    <style> table, th, td { border: 1px solid black; padding: 10px; } </style>
+</head>
+<body>
+
+    <table id="priceTable">
+        <tr><th>Part</th><th>Price</th></tr>
+        <tr><td>CPU &trade;</td><td>$200</td></tr>
+        <tr><td>RAM</td><td>$80</td></tr>
+        <tr><td>SSD</td><td>$100</td></tr>
+        <tr><td>GPU &copy;</td><td>$300</td></tr>
+    </table>
+    <br>
+    <button onclick="changeColor()">Change Color</button>
+
+    <script>
+        function changeColor() {
+            // Change all table text to red
+            let table = document.getElementById("priceTable").style.color = "red";
+        }
+    </script>
+</body>
+</html>

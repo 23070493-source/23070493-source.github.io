@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excercise 8</title>
+    <style>
+        form { display: grid; grid-template-columns: 100px 1fr; gap: 10px; width: 400px; }
+    </style>
+</head>
+<body>
+
+    <form onsubmit="return validateSub()">
+        <label>Full Name:</label> <input type="text" id="sName">
+        <label>Email:</label> <input type="email" id="sEmail">
+        
+        <label>Type:</label>
+        <div>
+            <input type="radio" name="type" checked> Monthly
+            <input type="radio" name="type"> Yearly
+        </div>
+
+        <label>Interests:</label>
+        <div>
+            <input type="checkbox" class="intr"> Tech
+            <input type="checkbox" class="intr"> News
+        </div>
+
+        <button type="submit">Subscribe</button>
+    </form>
+
+    <script>
+        function validateSub() {
+            let email = document.getElementById("sEmail").value;
+            let checks = document.querySelectorAll(".intr:checked");
+
+            // Email check (@ and .)
+            if (!email.includes("@") || !email.includes(".")) {
+                alert("Invalid Email");
+                return false;
+            }
+            // Interest check
+            if (checks.length === 0) {
+                alert("Select at least one interest");
+                return false;
+            }
+
+            alert("Success!");
+            return true;
+        }
+    </script>
+</body>
+</html>
